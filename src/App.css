@@ -1,12 +1,17 @@
 html {
-	background: #999;
+	background: #333333;
+}
+
+h1 {
+	color: rgba(225, 225, 225, 0.7);
+	text-align: center;
 }
 
 .grid {
 	width: 777px;
 	display: flex;
 	flex-flow: wrap;
-	margin: 200px auto;
+	margin: 100px auto;
 }
 
 .box {
