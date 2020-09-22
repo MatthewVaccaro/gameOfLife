@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useInterval } from 'react-interval-hook';
 import './App.css';
+//assets
+import add from './assets/add.svg';
+import subtract from './assets/subtract.svg';
 
 // Components
 import Grid from './grid';
@@ -13,10 +16,13 @@ function App() {
 	const [ cols ] = useState(25);
 	const [ grid, setGrid ] = useState(Array(rows).fill().map(() => Array(cols).fill(false)));
 	const freshGrid = Array(rows).fill().map(() => Array(cols).fill(false));
+	const [ color, setColor ] = useState('green');
+	const colors = [ 'green', 'red', 'blue', 'yellow' ];
 	var count = 0;
 
 	function reset() {
 		setGrid(freshGrid);
+		setGen(0);
 	}
 
 	function arrayClone(arr) {
@@ -69,25 +75,31 @@ function App() {
 
 	const { start, stop, isActive } = useInterval(
 		() => {
-			// console.log('Going!');
 			gameMethod();
 		},
 		speed,
 		{
 			autoStart: false,
-			immediate: false,
-			onFinish: () => {
-				console.log('Callback when timer is stopped');
-			}
+			immediate: false
 		}
 	);
-	const [ active, setActive ] = useState(isActive());
+
+	function colorChange() {
+		const current = colors.indexOf(color);
+		if (current === colors.length - 1) {
+			setColor(colors[0]);
+		}
+		else {
+			setColor(colors[current + 1]);
+		}
+	}
 
 	function gameMethod() {
 		if (living === false) {
 			return { stop };
 		}
 		else {
+			let gridStatic = grid;
 			let gridCopy = arrayClone(grid);
 			setLiving(false);
 
@@ -95,25 +107,25 @@ function App() {
 				for (var C = 0; C < cols; C++) {
 					// - if [R start, C start]
 					if (R === 0 && C === 0) {
-						const section = [ gridCopy[0][1], gridCopy[1][0], gridCopy[1][1] ];
+						const section = [ gridStatic[0][1], gridStatic[1][0], gridStatic[1][1] ];
 						counter(section);
 						checkNeighbors(R, C, gridCopy);
 					}
 					// - if [R start, C End]
 					if (R === 0 && C === 24) {
-						const section = [ gridCopy[0][23], gridCopy[1][24], gridCopy[1][23] ];
+						const section = [ gridStatic[0][23], gridStatic[1][24], gridStatic[1][23] ];
 						counter(section);
 						checkNeighbors(R, C, gridCopy);
 					}
 					// - if [R End, C start]
 					if (R === 24 && C === 0) {
-						const section = [ gridCopy[23][0], gridCopy[23][1], gridCopy[24][1] ];
+						const section = [ gridStatic[23][0], gridStatic[23][1], gridStatic[24][1] ];
 						counter(section);
 						checkNeighbors(R, C, gridCopy);
 					}
 					// - if [R end, C End]
 					if (R === 24 && C === 24) {
-						const section = [ gridCopy[24][23], gridCopy[23][23], gridCopy[23][24] ];
+						const section = [ gridStatic[24][23], gridStatic[23][23], gridStatic[23][24] ];
 						counter(section);
 						checkNeighbors(R, C, gridCopy);
 					}
@@ -123,19 +135,19 @@ function App() {
 					// Undefines get iggnored when counted and are used to ensure react doesn't
 					// throw an error when looking for an index that doesn't exist.
 					const top =
-						typeof gridCopy[R - 1] === 'undefined'
+						typeof gridStatic[R - 1] === 'undefined'
 							? [ undefined ]
-							: [ gridCopy[R - 1][C - 1], gridCopy[R - 1][C], gridCopy[R - 1][C + 1] ];
+							: [ gridStatic[R - 1][C - 1], gridStatic[R - 1][C], gridStatic[R - 1][C + 1] ];
 
 					const bottom =
-						typeof gridCopy[R + 1] === 'undefined'
+						typeof gridStatic[R + 1] === 'undefined'
 							? `${(R, C)}`
-							: [ gridCopy[R + 1][C - 1], gridCopy[R + 1][C], gridCopy[R + 1][C + 1] ];
+							: [ gridStatic[R + 1][C - 1], gridStatic[R + 1][C], gridStatic[R + 1][C + 1] ];
 
 					const middle =
-						typeof gridCopy[R][C] === 'undefined'
+						typeof gridStatic[R][C] === 'undefined'
 							? `${(R, C)}`
-							: [ gridCopy[R][C - 1], gridCopy[R][C + 1] ];
+							: [ gridStatic[R][C - 1], gridStatic[R][C + 1] ];
 
 					const neighbors = top.concat(middle, bottom);
 
@@ -153,45 +165,60 @@ function App() {
 	}
 
 	return (
-		<div className="App">
-			<h1> Generation: {gen} </h1>
-			<Grid grid={grid} rows={rows} cols={cols} selectBox={selectBox} />
-			<button onClick={start}>Play</button>
-			<button onClick={stop}>Stop</button>
+		<div className="app">
+			<div className="headerInfo">
+				<h1> Generation: {gen} </h1>
+				<h2>Speed: {speed} ms</h2>
+			</div>
+			<Grid grid={grid} rows={rows} cols={cols} selectBox={selectBox} color={color} setColor={setColor} />
+			<div className="allControls">
+				<button onClick={start}>Play</button>
+				<button onClick={stop}>Stop</button>
+				<button
+					onClick={() => {
+						seed();
+					}}
+				>
+					Seed
+				</button>
+				<button
+					onClick={() => {
+						reset();
+					}}
+				>
+					Reset
+				</button>
+				<div className="speedControls">
+					<div className="tempoButtons">
+						<p> Slower </p>
+						<img
+							onClick={() => {
+								if (speed < 2000) {
+									setSpeed(speed + 100);
+								}
+							}}
+							src={subtract}
+						/>
+					</div>
+					<div className="tempoButtons">
+						<p> Faster </p>
+						<img
+							onClick={() => {
+								if (speed > 100) {
+									setSpeed(speed - 100);
+								}
+							}}
+							src={add}
+						/>
+					</div>
+				</div>
+			</div>
 			<button
 				onClick={() => {
-					seed();
+					colorChange();
 				}}
 			>
-				Seed
-			</button>
-			<button
-				onClick={() => {
-					reset();
-				}}
-			>
-				Reset
-			</button>
-			<button
-				onClick={() => {
-					setSpeed(300);
-				}}
-			>
-				Fast
-			</button>
-			<button
-				onClick={() => {
-					setSpeed(500);
-				}}
-			>
-				Normal
-			</button>
-			<button
-				onClick={() => {
-					setSpeed(1000);
-				}}
-			>
-				Slow
+				Change Color
 			</button>
 
 			<h4> {living ? '' : "They're All Dead"} </h4>

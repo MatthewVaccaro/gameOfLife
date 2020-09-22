@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './box';
 
-const Grid = ({ grid, rows, cols, selectBox }) => {
+const Grid = ({ grid, rows, cols, selectBox, color }) => {
 	var rowsArr = [];
 	var boxClass = '';
 	for (var indexR = 0; indexR < rows; indexR++) {
@@ -10,7 +10,15 @@ const Grid = ({ grid, rows, cols, selectBox }) => {
 
 			boxClass = grid[indexR][indexC] ? 'box On' : 'box Off';
 			rowsArr.push(
-				<Box boxClass={boxClass} key={boxId} boxId={boxId} row={indexR} col={indexC} selectBox={selectBox} />
+				<Box
+					color={color}
+					boxClass={boxClass}
+					key={boxId}
+					boxId={boxId}
+					row={indexR}
+					col={indexC}
+					selectBox={selectBox}
+				/>
 			);
 		}
 	}

@@ -1,17 +1,42 @@
 html {
-	background: #333333;
+	background: #222222;
 }
 
-h1 {
+.app {
+	max-width: 777px;
+	margin: 0 auto;
+}
+
+h1,
+h2,
+p {
 	color: rgba(225, 225, 225, 0.7);
-	text-align: center;
+}
+
+.headerInfo {
+	margin-top: 50px;
+	display: flex;
+	justify-content: space-between;
+}
+
+img {
+	margin-left: 5px;
+}
+
+.speedControls {
+	display: flex;
+}
+
+.tempoButtons {
+	display: flex;
+	margin-right: 25px;
 }
 
 .grid {
 	width: 777px;
 	display: flex;
 	flex-flow: wrap;
-	margin: 30px auto;
+	margin: 10px auto;
 }
 
 .box {
@@ -23,8 +48,53 @@ h1 {
 	cursor: pointer;
 }
 
-.On {
+button {
+	font-size: 16px;
+	border: none;
+	border-radius: 6px;
+	color: #222222;
+	background: white;
+	padding: 15px 22px;
+	transition: all 0.6s;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+button:hover {
 	background: chartreuse;
+	padding: 15px 40px;
+}
+
+button:focus {
+	border: none;
+	background: #222222;
+	color: white;
+}
+
+.allControls {
+	display: flex;
+	justify-content: space-between;
+	width: 777px;
+}
+
+.on {
+	background: #5cf64a;
+}
+
+.green {
+	background: #5cf64a;
+}
+
+.blue {
+	background: #00e0ff;
+}
+
+.red {
+	background: #ff3566;
+}
+
+.yellow {
+	background: #ffe600;
 }
 
 .box:hover {
