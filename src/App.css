@@ -11,10 +11,16 @@ h1,
 h2,
 p {
 	color: rgba(225, 225, 225, 0.7);
+	margin: 0;
+}
+
+span {
+	transition: all 0.5s;
 }
 
 .headerInfo {
 	margin-top: 50px;
+	margin-bottom: 20px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -29,7 +35,8 @@ img {
 
 .tempoButtons {
 	display: flex;
-	margin-right: 25px;
+	margin-left: 25px;
+	align-items: center;
 }
 
 .grid {
@@ -44,6 +51,7 @@ img {
 	height: 25px;
 	background: rgba(0, 0, 0, .1);
 	margin: 3px;
+	transition: all 0.5s;
 }
 
 button {
@@ -56,10 +64,26 @@ button {
 	transition: all 0.6s;
 	cursor: pointer;
 	font-weight: bold;
+	transition: all 0.5s;
 }
 
-button:hover {
-	background: chartreuse;
+.greenHover:hover {
+	background: #5cf64a;
+	padding: 15px 40px;
+}
+
+.redHover:hover {
+	background: #ff3566;
+	padding: 15px 40px;
+}
+
+.blueHover:hover {
+	background: #00e0ff;
+	padding: 15px 40px;
+}
+
+.yellowHover:hover {
+	background: #ffe600;
 	padding: 15px 40px;
 }
 
@@ -73,6 +97,20 @@ button:focus {
 	display: flex;
 	justify-content: space-between;
 	width: 777px;
+}
+
+.colorChoices {
+	margin: 25px auto;
+	display: flex;
+	justify-content: space-between;
+	width: 250px;
+	align-items: center;
+}
+
+.selected {
+	border: solid white 2px;
+	box-sizing: border-box;
+	transition: all 0.4s;
 }
 
 .on {
@@ -93,6 +131,29 @@ button:focus {
 
 .yellow {
 	background: #ffe600;
+}
+
+.textgreen {
+	color: #5cf64a;
+}
+
+.textblue {
+	color: #00e0ff;
+}
+
+.textred {
+	color: #ff3566;
+}
+
+.textyellow {
+	color: #ffe600;
+}
+
+.color {
+	width: 25px;
+	height: 25px;
+	border-radius: 4px;
+	transition: all 0.2s;
 }
 
 .action {

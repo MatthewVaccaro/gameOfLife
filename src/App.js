@@ -147,8 +147,12 @@ function App() {
 	return (
 		<div className="app">
 			<div className="headerInfo">
-				<h1> Generation: {gen} </h1>
-				<h2>Speed: {speed} ms</h2>
+				<h1>
+					Generation: <span className={`text${color}`}>{gen}</span>
+				</h1>
+				<h2>
+					Speed: <span className={`text${color}`}>{speed}ms</span>
+				</h2>
 			</div>
 			<Grid
 				grid={grid}
@@ -160,9 +164,14 @@ function App() {
 				playing={playing}
 			/>
 			<div className="allControls">
-				<button onClick={start}>Play</button>
-				<button onClick={stop}>Stop</button>
+				<button className={`${color}Hover`} onClick={start}>
+					Play
+				</button>
+				<button className={`${color}Hover`} onClick={stop}>
+					Stop
+				</button>
 				<button
+					className={`${color}Hover`}
 					onClick={() => {
 						seed();
 					}}
@@ -170,6 +179,7 @@ function App() {
 					Seed
 				</button>
 				<button
+					className={`${color}Hover`}
 					onClick={() => {
 						reset();
 					}}
@@ -188,7 +198,7 @@ function App() {
 							src={subtract}
 						/>
 					</div>
-					<div className="tempoButtons">
+					<div className="tempoButtons action">
 						<p> Faster </p>
 						<img
 							onClick={() => {
@@ -201,13 +211,19 @@ function App() {
 					</div>
 				</div>
 			</div>
-			<button
-				onClick={() => {
-					colorChange();
-				}}
-			>
-				Change Color
-			</button>
+			<div className="colorChoices">
+				<p> Color Choices: </p>
+				{colors.map((cv) => {
+					return (
+						<div
+							onClick={() => {
+								setColor(cv);
+							}}
+							className={color === cv ? `${cv} color selected action` : `${cv} color action`}
+						/>
+					);
+				})}
+			</div>
 
 			<h4> {living ? '' : "They're All Dead"} </h4>
 		</div>
