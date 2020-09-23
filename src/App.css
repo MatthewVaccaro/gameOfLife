@@ -44,8 +44,6 @@ img {
 	height: 25px;
 	background: rgba(0, 0, 0, .1);
 	margin: 3px;
-	transition: all 0.2s;
-	cursor: pointer;
 }
 
 button {
@@ -97,6 +95,12 @@ button:focus {
 	background: #ffe600;
 }
 
-.box:hover {
+.action {
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.action:hover {
+	cursor: pointer;
 	background: white;
 }

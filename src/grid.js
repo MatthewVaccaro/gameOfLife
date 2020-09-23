@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './box';
 
-const Grid = ({ grid, rows, cols, selectBox, color }) => {
+const Grid = ({ grid, rows, cols, selectBox, color, playing }) => {
 	var rowsArr = [];
 	var boxClass = '';
 	for (var indexR = 0; indexR < rows; indexR++) {
@@ -14,7 +14,7 @@ const Grid = ({ grid, rows, cols, selectBox, color }) => {
 					color={color}
 					boxClass={boxClass}
 					key={boxId}
-					boxId={boxId}
+					playing={playing}
 					row={indexR}
 					col={indexC}
 					selectBox={selectBox}
