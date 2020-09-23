@@ -9,12 +9,12 @@ const Box = ({ boxClass, row, col, selectBox, color, playing }) => {
 			{boxClass === 'box On' ? (
 				<div
 					className={playing ? `${boxClass} ${color}` : `${boxClass} ${color} action`}
-					onClick={playing ? '' : selectFunction}
+					onClick={playing ? null : selectFunction}
 				/>
 			) : (
 				<div
 					className={playing ? ` ${boxClass}` : ` ${boxClass} action`}
-					onClick={playing ? '' : selectFunction}
+					onClick={playing ? null : selectFunction}
 				/>
 			)}
 		</div>

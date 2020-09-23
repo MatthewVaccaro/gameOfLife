@@ -90,17 +90,6 @@ function App() {
 
 		count = 0;
 	}
-
-	function colorChange() {
-		const current = colors.indexOf(color);
-		if (current === colors.length - 1) {
-			setColor(colors[0]);
-		}
-		else {
-			setColor(colors[current + 1]);
-		}
-	}
-
 	function gameMethod() {
 		if (living === false) {
 			return { stop };
@@ -171,12 +160,16 @@ function App() {
 				playing={playing}
 			/>
 			<div className="allControls">
-				<button className={`${color}Hover`} onClick={start}>
-					Play
-				</button>
-				<button className={`${color}Hover`} onClick={stop}>
-					Stop
-				</button>
+				{playing ? (
+					<button className={`${color}Hover`} onClick={stop}>
+						Stop
+					</button>
+				) : (
+					<button className={`${color}Hover`} onClick={start}>
+						Play
+					</button>
+				)}
+
 				<button
 					className={`${color}Hover`}
 					onClick={() => {
@@ -205,7 +198,7 @@ function App() {
 							src={subtract}
 						/>
 					</div>
-					<div className="tempoButtons action">
+					<div className="tempoButtons">
 						<p> Faster </p>
 						<img
 							onClick={() => {
