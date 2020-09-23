@@ -9,9 +9,35 @@ html {
 
 h1,
 h2,
-p {
+p,
+h3 {
 	color: rgba(225, 225, 225, 0.7);
 	margin: 0;
+}
+
+.hugeHeader {
+	font-size: 60px;
+	color: white;
+	font-weight: bolder;
+	margin-top: 150px;
+	margin-bottom: 35px;
+}
+
+h3 {
+	line-height: 38px;
+}
+
+.nav {
+	display: flex;
+	justify-content: space-between;
+	width: 250px;
+	margin: 25px auto;
+}
+
+a {
+	text-decoration: none;
+	color: rgba(225, 225, 225, 0.7);
+	font-weight: bold;
 }
 
 span {

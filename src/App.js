@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useInterval } from 'react-interval-hook';
+import { motion } from 'framer-motion';
 import './App.css';
 //assets
 import add from './assets/add.svg';
@@ -37,6 +38,7 @@ function App() {
 	);
 
 	function reset() {
+		setLiving(true);
 		setGrid(freshGrid);
 		setGen(0);
 	}
@@ -145,7 +147,12 @@ function App() {
 	}
 
 	return (
-		<div className="app">
+		<motion.div
+			initial={{ opacity: '0%', marginTop: '100px' }}
+			animate={{ opacity: '100%', marginTop: '0px' }}
+			transition={{ delay: 0.5, duration: 1.5 }}
+			className="app"
+		>
 			<div className="headerInfo">
 				<h1>
 					Generation: <span className={`text${color}`}>{gen}</span>
@@ -226,7 +233,7 @@ function App() {
 			</div>
 
 			<h4> {living ? '' : "They're All Dead"} </h4>
-		</div>
+		</motion.div>
 	);
 }
 
